@@ -5,11 +5,13 @@ import sys
 import jax
 import jax.numpy as jnp
 
+import open3d as o3d
 import numpy as np
 import cv2 as cv
 import time
+from display import Display
 
-class VSLAM:
+class vSLAM:
     def __init__(self, vpath='./videos/main.mp4') -> None:
         self.vpath = vpath
         
@@ -28,5 +30,10 @@ class VSLAM:
         vc.release()
         cv.destroyAllWindows()
 
+    def testOpen3D(self):
+        window = Display()
+        window.runTest()
+
+
 if __name__ == '__main__':
-    VSLAM().processFrame()
+    vSLAM().testOpen3D()
