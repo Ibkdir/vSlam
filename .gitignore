@@ -43,3 +43,7 @@ dist/
 # System-specific files
 *.bak
 *.tmp
+
+#Open3D
+
+RenderOption_*.json
