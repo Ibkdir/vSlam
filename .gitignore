@@ -45,5 +45,4 @@ dist/
 *.tmp
 
 #Open3D
-
 RenderOption_*.json
