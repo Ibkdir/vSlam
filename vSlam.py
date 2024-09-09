@@ -1,9 +1,6 @@
-# Trying the experimental Jax-Metal 😎
-import jax
-import jax.numpy as jnp
+
 import numpy as np
 import cv2 as cv
-import time
 from display import Display
 
 class vSLAM:
@@ -16,33 +13,53 @@ class vSLAM:
             return cv.ORB.create()
         elif chosen_fd == 'sift':
             return cv.SIFT.create()
+        elif chosen_fd == 'brisk':
+            return cv.BRISK.create()
         else:
             raise ValueError(f"❗ Unsupported feature detector ❗")
     
     def detect_features(self, frame):
         gray= cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
-        kp = self.fd.detect(gray, None)
-        frame=cv.drawKeypoints(gray,kp,frame)
-        return frame
+        kp = self.fd.detect(gray, None) # This also needs to be changed because I need descriptors as well. Meaning I need to use sift.detectAndCompute
+        points = np.array([point.pt for point in kp], dtype=np.float32)
+        frame = cv.drawKeypoints(frame,kp,frame)
+        return frame, points
+    
+    def match_features():
+        # Use FLANN for fast approximate nearest neighbor search
+        pass
+    
+    def estimate_motion():
+        # Use RANSAC for the fundamental matrix
+        pass
+
+    def triangulate_points():
+        # :Z
+        pass
+    
+    def bundle_adjustment():
+        # Oh god
+        pass
 
     def processVideo(self) -> None:
         vc = cv.VideoCapture(self.vpath)
         if not vc.isOpened():
             print('Error Opening File')
-            
+
+        ThreeDisplay = Display()
+
         while vc.isOpened():
             _, frame = vc.read()
-            time.sleep(0.1)
-            cv.imshow('Frame', self.detect_features(frame))
+            featureframe, keypoints = self.detect_features(frame)
+
+            ThreeDisplay.run(keypoints)
+            
             key = cv.waitKey(100)
             if key == ord('q'):
                 break
+            
         vc.release()
         cv.destroyAllWindows()
 
-    def testOpen3D(self):
-        window = Display()
-        window.runTest()
-
 if __name__ == '__main__':
-    vSLAM(vidname='driving').processVideo()
+    vSLAM(vidname='city', fd='sift').processVideo()
