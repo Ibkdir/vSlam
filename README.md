@@ -2,6 +2,8 @@
 
 This vSLAM (Visual Simultaneous Localization and Mapping) implementation uses computer vision techniques to estimate the 3D structure of a scene from video input. 
 
+## Overview
+
 ### Pipeline
 
 ![Workflow](/Workflow.png)
@@ -14,8 +16,15 @@ This implementation outputs a 3D map of the environment and visualizes it using 
 
 This diagram illustrates the vSLAM pipeline, from input video to feature detection, matching, pose estimation, 3D map construction, and optimization using bundle adjustment.
 
+### Interesting Resources
+
+- [geohot's twitchslam](https://github.com/geohot/twitchslam)
+- [SLAM Overview](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping)
+- [Visual Odomotry](https://en.wikipedia.org/wiki/Visual_odometry)
+
 ### Todo
 
-Further Optimize using CUDA or Apple-metal
-Optimize display. Maybe use Pangolian
+- Further Optimize using CUDA or Apple-metal
+- Optimize display. Maybe use Pangolian
+- Make less jank lol
 
